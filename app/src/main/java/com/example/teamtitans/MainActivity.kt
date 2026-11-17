@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -26,6 +27,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.text.font.FontWeight
+
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,32 +41,34 @@ class MainActivity : ComponentActivity() {
 
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxSize()      // Ocupa toda la pantalla.
                         .background(MaterialTheme.colorScheme.background)
-                        .statusBarsPadding()
+                        .statusBarsPadding()    // Respeta la barra de estado.
                 ) {
 
                     Text(
-                        text = "TEAM TITANS",
+                        text = "TEAM TITANS",       // Título del equipo
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                            .padding(top = 16.dp)
+                            .align(Alignment.CenterHorizontally)        // Centra el título.
+                            .padding(top = 16.dp)       // Añade espacio superior.
                     )
 
                     Jugador(
-                        nombre = "AlexPro",
-                        rol = "Atacante",
-                        edad = 21,
-                        nivel = 87,
-                        imagen = R.drawable.jugador1
+                        nombre = "AlexPro", // Nombre del primer jugador.
+                        rol = "Atacante", // Posición.
+                        edad = 21, // Edad.
+                        nivel = 87, // Nivel.
+                        imagen = R.drawable.jugador1 // Fotografía.
                     )
+
                     HorizontalDivider(
-                        modifier = Modifier.padding(vertical = 8.dp),
-                        thickness = 2.dp,
-                        color = MaterialTheme.colorScheme.primary
+                        modifier = Modifier.padding(horizontal = 16.dp), // Margen lateral.
+                        thickness = 2.dp, // Grosor de la línea.
+                        color = MaterialTheme.colorScheme.primary // Color del tema.
                     )
+
 
                     Jugador(
                         nombre = "ShadowX",
@@ -103,42 +109,46 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
+
+@Composable // Permite crear elementos de la interfaz.
 fun Jugador(
-    nombre: String,
-    rol: String,
-    edad: Int,
-    nivel: Int,
-    imagen: Int
+    nombre: String, // Nombre del jugador.
+    rol: String, // Posición dentro del equipo.
+    edad: Int, // Edad del jugador.
+    nivel: Int, // Nivel de habilidad.
+    @DrawableRes imagen: Int // Recurso de imagen.
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(12.dp)
+        modifier = Modifier
+            .fillMaxWidth() // Ocupa todo el ancho.
+            .padding(16.dp), // Añade separación exterior.
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = imagen),
-            contentDescription = nombre,
-            contentScale = ContentScale.Crop,
+            painter = painterResource(id = imagen), // Carga la fotografía.
+            contentDescription = "Foto de $nombre",
             modifier = Modifier
-                .size(80.dp)
-                .clip(CircleShape)
+                .size(80.dp) // Tamaño de la imagen.
+                .clip(CircleShape), // Recorta la imagen en círculo.
+            contentScale = ContentScale.Crop // Ajusta la fotografía.
         )
 
         Column(
-            modifier = Modifier.padding(start = 12.dp)
+            modifier = Modifier.padding(start = 16.dp)
         ) {
             Text(
                 text = nombre,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold // Destaca el nombre.
             )
 
-            Text(text = rol)
-            Text(text = "$edad años")
+            Text(text = "Rol: $rol")
+            Text(text = "Edad: $edad años")
             Text(text = "Nivel: $nivel")
         }
     }
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -148,16 +158,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
+@Preview(showBackground = true) // Activa la vista previa con fondo.
+@Composable // Permite representar la interfaz.
 fun JugadorPreview() {
-    TeamTitansTheme {
+    TeamTitansTheme { // Aplica el tema de la aplicación.
         Jugador(
-            nombre = "AlexPro",
-            rol = "Atacante",
-            edad = 21,
-            nivel = 87,
-            imagen = R.drawable.jugador1
+            nombre = "AlexPro", // Nombre del jugador.
+            rol = "Atacante", // Posición en el equipo.
+            edad = 21, // Edad.
+            nivel = 87, // Nivel de habilidad.
+            imagen = R.drawable.jugador1 // Fotografía.
         )
     }
 }
